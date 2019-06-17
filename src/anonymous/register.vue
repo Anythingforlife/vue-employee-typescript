@@ -102,25 +102,32 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { PATTERNS, isValidForm } from "../_helpers";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { PATTERNS, isValidForm, STORE_TYPE } from '../_helpers';
+import { Action } from 'vuex-class';
+
+const namespace: string = 'login';
 
 @Component
 export default class Register extends Vue {
-  @Prop() private msg!: string;
-
-  PATTERNS = PATTERNS;
-  user = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: ""
+  @Action(STORE_TYPE.REGISTER, { namespace }) public register: any;
+  public veeFields: any;
+  public PATTERNS = PATTERNS;
+  public user = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
   };
 
   get isValidForm() {
-    return isValidForm(this["veeFields"]);
+    return isValidForm(this.veeFields);
+  }
+
+  public handleSubmit() {
+    this.register(this.user);
   }
 }
 </script>

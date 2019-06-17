@@ -7,28 +7,43 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { State, Action, Getter } from "vuex-class";
-import { STORE_TYPE } from "./_helpers/constant";
-import * as toastr from "toastr";
-import LoaderPage from "./shared/components/loader.vue";
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { State, Action } from 'vuex-class';
+import { STORE_TYPE, CONSTANT } from './_helpers/constant';
+import * as toastr from 'toastr';
+import LoaderPage from './shared/components/loader.vue';
 
-const namespace: string = "toaster";
+const namespace: string = 'toaster';
 
 @Component({
   components: {
-    LoaderPage
-  }
+    LoaderPage,
+  },
 })
 export default class App extends Vue {
-  @State(STORE_TYPE.MESSAGE, { namespace }) message: string;
-  @State(STORE_TYPE.TYPE, { namespace }) type: string;
-  @Action(STORE_TYPE.CLEAR, { namespace }) clear: string;
-  @Watch("message")
-  onPropertyChanged(newValue: string, oldValue: string) {
+  @State(STORE_TYPE.MESSAGE, { namespace }) public message!: string;
+  @State(STORE_TYPE.TYPE, { namespace }) public type!: string;
+  @Action(STORE_TYPE.CLEAR, { namespace }) public clear: any;
+  @Watch('message')
+  public onPropertyChanged(newValue: string, oldValue: string) {
     if (newValue) {
-      toastr[this.type](newValue);
-      this[STORE_TYPE.CLEAR]();
+      this.messageHandling(newValue);
+      this.clear();
+    }
+  }
+
+  public messageHandling(message: string) {
+    switch (this.type) {
+      case CONSTANT.SUCCESS:
+        toastr.success(message);
+        break;
+      case CONSTANT.ERROR:
+        toastr.error(message);
+        break;
+      case CONSTANT.INFO:
+        toastr.info(message);
+      case CONSTANT.INFO:
+        toastr.warning(message);
     }
   }
 }

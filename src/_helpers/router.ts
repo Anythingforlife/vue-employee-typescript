@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import { sharedSerivce, storageService } from '@/_services';
+import { storageService } from '@/_services';
 import { CONSTANT } from './constant';
 
 const Login = () => import('../anonymous/login.vue');
 const Register = () => import('../anonymous/register.vue');
 const Home = () => import('../authenticated/Home.vue');
+const AddUpdateEmployee = () => import('../authenticated/addUpdateEmployee.vue');
 
 Vue.use(Router);
 
@@ -16,7 +17,14 @@ export const router = new Router({
       path: '/', redirect: '/home',
     },
     {
-      path: '/home', component: Home,
+      path: '/home', component: Home, children: [
+        {
+          path: '/addEmployee', component: AddUpdateEmployee,
+        },
+        {
+          path: '/employee/:id', component: AddUpdateEmployee,
+        },
+      ],
     },
     { path: '/login', component: Login },
     { path: '/register', component: Register },

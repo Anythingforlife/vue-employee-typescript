@@ -34,64 +34,66 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { columns } from "../_models/employee";
-import { State, Action, Getter } from "vuex-class";
-import { STORE_TYPE, CONSTANT } from "../_helpers";
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { columns } from '../_models/employee';
+import { State, Action, Getter } from 'vuex-class';
+import { STORE_TYPE, CONSTANT } from '../_helpers';
 
-const namespace: string = "employees";
+const namespace: string = 'employees';
 
 @Component({
-  components: {}
+  components: {},
 })
 export default class EmployeeList extends Vue {
-  @State(STORE_TYPE.CURRENT_URL, { namespace }) currentUrl: string;
-  @State(STORE_TYPE.IS_RESET_STATE, { namespace }) isResetState: string;
-  @Getter(STORE_TYPE.CURRENT_PAGE_DATA, { namespace }) currentPageData: any[];
-  @Getter(STORE_TYPE.TOTAL, { namespace }) total: number;
+  @State(STORE_TYPE.CURRENT_URL, { namespace }) public currentUrl!: string;
+  @State(STORE_TYPE.IS_RESET_STATE, { namespace }) public isResetState!: string;
+  @Getter(STORE_TYPE.CURRENT_PAGE_DATA, { namespace })
+  public currentPageData!: any;
+  @Getter(STORE_TYPE.TOTAL, { namespace }) public total!: number;
   @Action(STORE_TYPE.LOAD_CURRENT_PAGE_DATA, { namespace })
-  loadCurrentPageData: any;
+  public loadCurrentPageData: any;
   @Action(STORE_TYPE.SET_IS_RESTE_STATE, { namespace })
-  setIsResetSatte: any;
-  @Action(STORE_TYPE.SELECTED_EMPLOYEE, { namespace }) selectedEmployee: any;
-  @Action(STORE_TYPE.DELETE_EMPLOYEE, { namespace }) deleteEmployee: any;
+  public setIsResetState: any;
+  @Action(STORE_TYPE.SELECTED_EMPLOYEE, { namespace })
+  public selectedEmployee: any;
+  @Action(STORE_TYPE.DELETE_EMPLOYEE, { namespace }) public deleteEmployee: any;
 
-  currentPage = 1;
-  limit = 10;
-  perPage = 10;
-  columns = columns;
-  CONSTANT = CONSTANT;
-  STORE_TYPE = STORE_TYPE;
+  public currentPage = 1;
+  public limit = 10;
+  public perPage = 10;
+  public columns = columns;
+  public CONSTANT = CONSTANT;
+  public STORE_TYPE = STORE_TYPE;
 
-  mounted() {
+  public mounted() {
     this.loadCurrentPageData({
       currentPage: this.currentPage,
-      perPage: this.perPage
+      perPage: this.perPage,
     });
   }
 
-  addNewEmployee() {
-    this[STORE_TYPE.SELECTED_EMPLOYEE](null);
+  public addNewEmployee() {
+    this.selectedEmployee(null);
     this.$router.push(CONSTANT.URL_ADD_EMPLOYEE);
   }
 
-  editEmployee(employee) {
-    this[STORE_TYPE.SELECTED_EMPLOYEE](employee);
-    this.$router.push(CONSTANT.URL_EMPLOYEE + "/" + employee.id);
+  public editEmployee(employee: { id: string }) {
+    this.selectedEmployee(employee);
+    this.$router.push(CONSTANT.URL_EMPLOYEE + '/' + employee.id);
   }
 
-  pageChange(page) {
+  public pageChange(page: number) {
     this.currentPage = page;
-    this[STORE_TYPE.LOAD_CURRENT_PAGE_DATA]({
+    this.loadCurrentPageData({
       currentPage: this.currentPage,
-      perPage: this.perPage
+      perPage: this.perPage,
     });
   }
 
-  @Watch("isResetState")
-  onPropertyChanged(newValue: string, oldValue: string) {
-    if (this[STORE_TYPE.IS_RESET_STATE]) {
-      this[STORE_TYPE.SET_IS_RESTE_STATE](false);
+  @Watch('isResetState')
+  public onPropertyChanged(newValue: string, oldValue: string) {
+    if (this.isResetState) {
+      this.setIsResetState(false);
       this.pageChange(1);
     }
   }
