@@ -22,12 +22,14 @@ export const STORE_TYPE = {
     SELECTED_EMPLOYEE: 'selectedEmployee',
     UPDATE_CURRENT_PAGE_DATA: 'updateCurrentPageData',
     DELETE_EMPLOYEE: 'deleteEmployee',
+    COMMAN_SHOW_HIDE_LOADER: 'comman/showHideLoader',
 
     MESSAGE: 'message',
     TYPE: 'type',
     CURRENT_URL: 'currentUrl',
     IS_RESET_STATE: 'isResetState',
     EMPLOYEE: 'employee',
+    SHOW_LOADER: 'showLoader',
 };
 
 export const CONSTANT = {
@@ -50,4 +52,8 @@ export const CONSTANT = {
     URL_ADD_EMPLOYEE: '/addEmployee',
     URL_EMPLOYEE: '/employee',
     URL_BLANK: '/',
+    SUCCESS: 'success',
+    ERROR: 'error',
+    INFO: 'info',
+    WARNING: 'warning',
 };

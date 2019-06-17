@@ -1,6 +1,7 @@
 import axios from 'axios';
+import store from '../store';
+import { STORE_TYPE } from '../_helpers/';
 
-import { sharedSerivce } from '../_services/sharedService';
 export const Interceptor = {
   requestInterceptor,
   responseInterceptor,
@@ -8,20 +9,20 @@ export const Interceptor = {
 
 function requestInterceptor() {
   axios.interceptors.request.use((config) => {
-    sharedSerivce.showHideLoader(true);
+    store.dispatch(STORE_TYPE.COMMAN_SHOW_HIDE_LOADER, true);
     return config;
   }, (error) => {
-    sharedSerivce.showHideLoader(false);
+    store.dispatch(STORE_TYPE.COMMAN_SHOW_HIDE_LOADER, false);
     return Promise.reject(error);
   });
 }
 
 function responseInterceptor() {
   axios.interceptors.response.use((response) => {
-    sharedSerivce.showHideLoader(false);
+    store.dispatch(STORE_TYPE.COMMAN_SHOW_HIDE_LOADER, false);
     return response;
   }, (error) => {
-    sharedSerivce.showHideLoader(false);
+    store.dispatch(STORE_TYPE.COMMAN_SHOW_HIDE_LOADER, false);
     return Promise.reject(error);
   });
 }

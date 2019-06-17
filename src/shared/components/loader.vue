@@ -9,36 +9,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { sharedSerivce } from "../../_services/sharedService";
-import { Subscription } from "rxjs";
+import { Component, Vue } from 'vue-property-decorator';
+import { STORE_TYPE } from '../../_helpers/';
+import { State } from 'vuex-class';
+const namespace: string = 'comman';
 
 @Component
 export default class LoaderPage extends Vue {
-  showLoader = false;
-  subscription$ = new Subscription();
-
-  toggleLoader() {
-    this.subscription$ = sharedSerivce.toggleLoader.subscribe(
-      (showLoader: boolean) => {
-        this.showLoader = showLoader;
-      },
-      error => {
-        this.showLoader = false;
-      }
-    );
-  }
-
-  /**
-   *Init at component created
-   */
-  mounted() {
-    this.toggleLoader();
-  }
-
-  beforeDestroy() {
-    this.subscription$.unsubscribe();
-  }
+  @State(STORE_TYPE.SHOW_LOADER, { namespace }) public showLoader!: boolean;
 }
 </script>
 

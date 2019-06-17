@@ -46,34 +46,34 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { mapActions } from "vuex";
-import { State, Action, Getter } from "vuex-class";
-const namespace: string = "login";
+import { Component, Vue } from 'vue-property-decorator';
+import { mapActions } from 'vuex';
+import { State, Action, Getter } from 'vuex-class';
+const namespace: string = 'login';
 
 import {
   isValidForm,
   formControlDirtyStatus,
   CONSTANT,
-  STORE_TYPE
-} from "../_helpers/";
+  STORE_TYPE,
+} from '../_helpers/';
 
 @Component({
-  components: {}
+  components: {},
 })
 export default class Login extends Vue {
-  @Action(STORE_TYPE.LOGIN, { namespace }) login: any;
-
-  user = {
-    email: "om@g.com",
-    password: "omprakash"
+  @Action(STORE_TYPE.LOGIN, { namespace }) public login: any;
+  public veeFields: any;
+  public user = {
+    email: '',
+    password: '',
   };
 
   get isValidForm() {
-    return isValidForm(this["veeFields"]);
+    return isValidForm(this.veeFields);
   }
 
-  handleSubmit() {
+  public handleSubmit() {
     this.login(this.user);
   }
 }

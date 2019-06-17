@@ -1,4 +1,5 @@
-import { employeeService, sharedSerivce } from '../_services';
+import { employeeService } from '../_services/employeeService';
+import { sharedSerivce } from '../_services/sharedService';
 import { STORE_TYPE, CONSTANT } from '../_helpers/constant';
 import { router } from '../_helpers';
 import { employee } from '../_models/employee';
