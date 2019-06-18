@@ -6,14 +6,16 @@ import comman from './comman.module';
 import login from './login.module';
 import employees from './employees.module';
 
-
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   modules: {
-    comman,
-    toaster,
-    login,
     employees,
   },
 });
+
+store.registerModule('toaster', toaster);
+store.registerModule('comman', comman);
+store.registerModule('login', login);
+
+export default store;

@@ -11,7 +11,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
 import { STORE_TYPE, CONSTANT } from './_helpers/constant';
 import * as toastr from 'toastr';
-import LoaderPage from './shared/components/loader.vue';
+const LoaderPage = () => import('./shared/components/loader.vue');
 
 const namespace: string = 'toaster';
 

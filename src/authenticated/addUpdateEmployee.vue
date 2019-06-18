@@ -69,7 +69,6 @@ import {
 } from '../_helpers/formValidation';
 import { mapActions, mapGetters } from 'vuex';
 import { STORE_TYPE, CONSTANT } from '../_helpers/constant';
-import { sharedSerivce } from '../_services/sharedService';
 
 const namespace: string = 'employees';
 
